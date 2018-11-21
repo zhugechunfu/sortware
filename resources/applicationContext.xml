@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+      xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	
+	<!-- 一个bean就代表一个实例 -->
+	<bean id="zhangga" class="com.spring.HelloSpring">
+		<!-- 在bean里面可以给当前实例的属性赋值 -->
+		<property name="person">
+			<!-- 如果要通过配置的方式赋值，那么属性必须封装 -->
+			<value>张嘎</value>
+		</property>
+		<property name="words">
+			<!-- 如果要通过配置的方式赋值，那么属性必须封装 -->
+			<value>三天不打小鬼子,手都痒痒!</value>
+		</property>
+	</bean>
+	
+		<bean id="rod" class="com.spring.HelloSpring">
+		<!-- 在bean里面可以给当前实例的属性赋值 -->
+		<property name="person">
+			<!-- 如果要通过配置的方式赋值，那么属性必须封装 -->
+			<value>Rod</value>
+		</property>
+		<property name="words">
+			<!-- 如果要通过配置的方式赋值，那么属性必须封装 -->
+			<value>世界上有十种人,认识二进制的何不认识二进制的</value>
+		</property>
+	</bean>
+	<bean id="type1" class="com.entity.Equip" p:name="战神头盔"  p:type="头盔" p:speedPlus="2" p:attackPlus="4" p:defenceplus="6" />
+	<bean id="type2" class="com.entity.Equip"  p:name="连环锁子甲"  p:type="铠甲" p:speedPlus="6" p:attackPlus="4" p:defenceplus="15" />
+	<bean id="type3" class="com.entity.Equip"  p:name="波斯追风谢"  p:type="鞋子" p:speedPlus="8" p:attackPlus="2" p:defenceplus="3" />
+	<bean id="type4" class="com.entity.Equip"  p:name="蓝魔指环"  p:type="指环" p:speedPlus="8" p:attackPlus="12" p:defenceplus="3" />
+	
+	<bean id="toukiu" class="com.entity.Player">
+	<property name="name" value="张三" />
+	<property name="armet" ref="type1"></property>
+	</bean>
+	<bean id="kaijia" class="com.entity.Player">
+	<property name="name" value="张三" />
+	<property name="loricae" ref="type2"></property>
+	</bean>
+	<bean id="boot" class="com.entity.Player">
+	<property name="name" value="张三" />
+	<property name="boot" ref="type3"></property>
+	</bean>
+	<bean id="ring" class="com.entity.Player">
+	<property name="name" value="张三" />
+	<property name="ring" ref="type4"></property>
+	</bean>
+	<bean id="lanmo" class="com.entity.Player">
+	<property name="name" value="张三" />
+	<property name="ring" ref="type4"></property>
+	</bean>
+	<bean id="update" class="com.entity.Player">
+	</bean>
+	 <aop:config>
+	<aop:pointcut id="pointcut" expression="execution(public void updateEqiup(com.entity.Equip))"/>
+	<aop:aspect ref="update">
+	<aop:before method="before" pointcut-ref="pointcut"></aop:before>
+	</aop:aspect>
+	</aop:config>
+	<context:component-scan base-package="com.dao,com.entity"/> 
+</beans>
